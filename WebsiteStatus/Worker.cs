@@ -34,7 +34,6 @@ namespace WebsiteStatus
         }
 
 
-
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var stopwatch = Stopwatch.StartNew();
@@ -44,12 +43,10 @@ namespace WebsiteStatus
                 try
                 {
                     var result = await client.GetAsync("http://www.gcccng.org");
-                    if (result.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
+                    if (result.StatusCode == System.Net.HttpStatusCode.OK) {
                         _logger.LogInformation($"GCCC website is up. Status Code {result.StatusCode}");
                     }
-                    else
-                    {
+                    else{
                         _logger.LogInformation($"GCCC website is down. Status Code {result.StatusCode}");
                     }
                 }
@@ -58,12 +55,15 @@ namespace WebsiteStatus
                     _logger.LogError(ex.Message, ex);
                 }
 
-                finally {
+                finally
+                {
                     await Task.Delay(2500, stoppingToken);
+
                     stopwatch.Stop();
                     
                     var timeTaken = (stopwatch.ElapsedMilliseconds);
                     _logger.LogInformation($"Process took a total of {timeTaken} milliseconds");
+
                     stopwatch.Reset();
                 }                
             }

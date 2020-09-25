@@ -1,1 +1,1 @@
-﻿## A simple .net core worker Service
+﻿## A simple .net core worker service
